@@ -5,25 +5,31 @@
 @inject IJSRuntime JS
 @inject NavigationManager NavigationManager
 
-<h1>Camera</h1>
-
-@if (_lastError is not null)
-{
-    <p>Could not start video: @_lastError</p>
-
-    if (HasReloaded == true)
+<div class="page">
+    @if (_lastError is not null)
     {
-        <p>You may need to open the settings app to enable camera access for this app</p>
+        <p>Could not start video: @_lastError</p>
+
+        if (HasReloaded == true)
+        {
+            <p>You may need to open the settings app to enable camera access for this app</p>
+        }
+
+        <button @onclick="Reload">Reload</button>
     }
-
-    <button @onclick="Reload">Reload</button>
-}
-
-<video @ref="_videoReference" style="width: 100%;">The current WebView does not support video.</video>
+    else
+    {
+        <video @ref="_videoReference" id="videoFeed">The current WebView does not support video.</video>
+        <canvas class="d-none" id="currentFrame" width=@WIDTH height=@HEIGHT />
+        <button class="capture-button" @onclick="CaptureFrame"></button>
+    }
+</div>
 
 @code {
     private ElementReference? _videoReference;
     private string? _lastError;
+    private int WIDTH = 320;
+    private int HEIGHT = 240;
 
     [Parameter]
     [SupplyParameterFromQuery(Name = "reloaded")]
@@ -42,6 +48,18 @@
     {
         var reloadedUri = NavigationManager.GetUriWithQueryParameter("reloaded", true);
         NavigationManager.NavigateTo(reloadedUri, true);
+    }
+
+    private async Task CaptureFrame()
+    {
+        await JS.InvokeVoidAsync(
+            "getFrame", "videoFeed", "currentFrame", WIDTH, HEIGHT, DotNetObjectReference.Create(this));
+    }
+
+    [JSInvokable]
+    public void ProcessImage(string imageString)
+    {
+        byte[] imageData = Convert.FromBase64String(imageString);
     }
 
     async ValueTask IAsyncDisposable.DisposeAsync()

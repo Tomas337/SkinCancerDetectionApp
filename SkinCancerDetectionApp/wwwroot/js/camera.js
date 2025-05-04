@@ -2,7 +2,6 @@
     try {
         const mediaStream = await navigator.mediaDevices.getUserMedia({
             video: true,
-            //audio: true, // Uncommenting will request microphone permisssions. Be warned: this may cause audio feedback.
         });
 
         video.srcObject = mediaStream;
@@ -30,3 +29,12 @@ window.stopCameraFeed = (video) => {
 
     video.srcObject = null;
 };
+
+window.getFrame = (src, dest, width, height, dotNetHelper) => {
+    let video = document.getElementById(src);
+    let canvas = document.getElementById(dest);
+    canvas.getContext('2d').drawImage(video, 0, 0, width, height);
+
+    let dataUrl = canvas.toDataURL("image/jpeg");
+    dotNetHelper.invokeMethodAsync('ProcessImage', dataUrl);
+}
