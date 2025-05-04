@@ -27,8 +27,6 @@ public partial class MainPage
         e.WebView.Settings.JavaScriptEnabled = true;
         e.WebView.Settings.AllowFileAccess = true;
         e.WebView.Settings.MediaPlaybackRequiresUserGesture = false;
-        e.WebView.Settings.SetGeolocationEnabled(true);
-        e.WebView.Settings.SetGeolocationDatabasePath(e.WebView.Context?.FilesDir?.Path);
         e.WebView.SetWebChromeClient(new PermissionManagingBlazorWebChromeClient(e.WebView.WebChromeClient!, activity));
     }
 }
