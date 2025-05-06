@@ -20,3 +20,24 @@ button.capture-btn {
     border-radius: 45px;
     top: 85%;
 }
+
+div.floating-btns {
+    display: flex;
+    justify-content: space-between;
+    position: fixed;
+    width: 260px;
+    height: 90px;
+    top: 85%;
+}
+
+button.floating-btn {
+    width: 45%;
+    height: 100%;
+    border-radius: 12px;
+}
+
+button.action-btn {
+}
+
+button.cancel-btn {
+}

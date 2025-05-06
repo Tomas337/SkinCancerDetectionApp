@@ -24,8 +24,8 @@
         @if (_isPaused)
         {
             <div class="floating-btns">
-                <button class="inference-btn" @onclick="ProcessFrame">Infer</button>
-                <button class="cancel-btn" @onclick="ResumeCameraFeed">Cancel</button>
+                <button class="cancel-btn floating-btn btn-danger" @onclick="ResumeCameraFeed">Cancel</button>
+                <button class="action-btn floating-btn btn-success" @onclick="ProcessFrame">Infer</button>
             </div>
         }
         else
