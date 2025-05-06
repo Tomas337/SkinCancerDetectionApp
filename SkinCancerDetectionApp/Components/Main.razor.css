@@ -34,10 +34,5 @@ button.floating-btn {
     width: 45%;
     height: 100%;
     border-radius: 12px;
-}
-
-button.action-btn {
-}
-
-button.cancel-btn {
+    margin: auto;
 }

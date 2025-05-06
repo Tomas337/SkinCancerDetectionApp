@@ -21,11 +21,18 @@
     {
         <video @ref="_videoReference" id="videoFeed">The current WebView does not support video.</video>
         <canvas class="d-none" id="currentFrame" width=@_width height=@_height />
-        @if (_isPaused)
+        @if (_buttonVisibility != ButtonVisibility.None)
         {
             <div class="floating-btns">
-                <button class="cancel-btn floating-btn btn-danger" @onclick="ResumeCameraFeed">Cancel</button>
-                <button class="action-btn floating-btn btn-success" @onclick="ProcessFrame">Infer</button>
+                @if (_buttonVisibility == ButtonVisibility.Both)
+                {
+                    <button class="floating-btn btn-danger" @onclick="ResumeCameraFeed">Cancel</button>
+                    <button class="floating-btn btn-success" @onclick="ProcessFrame">Infer</button>
+                }
+                else
+                {
+                    <button class="floating-btn btn-danger" @onclick="ResumeCameraFeed">Reset</button>
+                }
             </div>
         }
         else
@@ -40,7 +47,14 @@
     private string? _lastError;
     private int _width = 320;
     private int _height = 320;
-    private bool _isPaused = false;
+    private ButtonVisibility _buttonVisibility = ButtonVisibility.None;
+
+    enum ButtonVisibility
+    {
+        None,
+        Both,
+        One
+    }
 
     [Parameter]
     [SupplyParameterFromQuery(Name = "reloaded")]
@@ -61,21 +75,21 @@
         NavigationManager.NavigateTo(reloadedUri, true);
     }
 
-    // TODO: pause video when a frame is captured and show options to either perform inference or cancel and resume video
     private async Task PauseCameraFeed()
     {
-        _isPaused = true;
+        _buttonVisibility = ButtonVisibility.Both;
         await JS.InvokeVoidAsync("pauseCameraFeed", _videoReference);
     }
 
     private async Task ResumeCameraFeed()
     {
-        _isPaused = false;
+        _buttonVisibility = ButtonVisibility.None;
         await JS.InvokeVoidAsync("resumeCameraFeed", _videoReference);
     }
 
     private async Task ProcessFrame()
     {
+        _buttonVisibility = ButtonVisibility.One;
         await JS.InvokeVoidAsync(
             "processFrame", "videoFeed", "currentFrame", _width, _height, DotNetObjectReference.Create(this));
     }
