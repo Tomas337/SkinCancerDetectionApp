@@ -65,6 +65,11 @@
         <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)"/>
         <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Maui" Version="$(MauiVersion)"/>
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.1"/>
+        <PackageReference Include="Microsoft.ML" Version="5.0.0-preview.1.25127.4" />
+        <PackageReference Include="Microsoft.ML.ImageAnalytics" Version="5.0.0-preview.1.25127.4" />
+        <PackageReference Include="Microsoft.ML.OnnxRuntime" Version="1.21.0" />
+        <PackageReference Include="Microsoft.ML.OnnxTransformer" Version="5.0.0-preview.1.25127.4" />
+        <PackageReference Include="Microsoft.Windows.Compatibility" Version="10.0.0-preview.3.25174.1" />
     </ItemGroup>
 
     <ItemGroup Condition="$(TargetFramework.StartsWith('net8.0-android')) != true">
@@ -83,6 +88,7 @@
 	</ItemGroup>
     
     <ItemGroup>
+	  <Folder Include="assets\Model\" />
 	  <Folder Include="wwwroot\images\" />
 	</ItemGroup>
 

@@ -30,7 +30,15 @@ window.stopCameraFeed = (video) => {
     video.srcObject = null;
 };
 
-window.getFrame = (src, dest, width, height, dotNetHelper) => {
+window.pauseCameraFeed = (video) => {
+    video.pause()
+}
+
+window.resumeCameraFeed = (video) => {
+    video.play()
+}
+
+window.processFrame = (src, dest, width, height, dotNetHelper) => {
     let video = document.getElementById(src);
     let canvas = document.getElementById(dest);
     canvas.getContext('2d').drawImage(video, 0, 0, width, height);

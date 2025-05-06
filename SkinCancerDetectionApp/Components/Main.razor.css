@@ -13,7 +13,7 @@ div.page {
     align-items: center;
 }
 
-button.capture-button {
+button.capture-btn {
     position: fixed;
     width: 90px;
     height: 90px;

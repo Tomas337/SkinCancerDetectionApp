@@ -20,16 +20,27 @@
     else
     {
         <video @ref="_videoReference" id="videoFeed">The current WebView does not support video.</video>
-        <canvas class="d-none" id="currentFrame" width=@WIDTH height=@HEIGHT />
-        <button class="capture-button" @onclick="CaptureFrame"></button>
+        <canvas class="d-none" id="currentFrame" width=@_width height=@_height />
+        @if (_isPaused)
+        {
+            <div class="floating-btns">
+                <button class="inference-btn" @onclick="ProcessFrame">Infer</button>
+                <button class="cancel-btn" @onclick="ResumeCameraFeed">Cancel</button>
+            </div>
+        }
+        else
+        {
+            <button class="capture-btn" @onclick="PauseCameraFeed"></button>
+        }
     }
 </div>
 
 @code {
     private ElementReference? _videoReference;
     private string? _lastError;
-    private int WIDTH = 320;
-    private int HEIGHT = 240;
+    private int _width = 320;
+    private int _height = 320;
+    private bool _isPaused = false;
 
     [Parameter]
     [SupplyParameterFromQuery(Name = "reloaded")]
@@ -50,10 +61,23 @@
         NavigationManager.NavigateTo(reloadedUri, true);
     }
 
-    private async Task CaptureFrame()
+    // TODO: pause video when a frame is captured and show options to either perform inference or cancel and resume video
+    private async Task PauseCameraFeed()
+    {
+        _isPaused = true;
+        await JS.InvokeVoidAsync("pauseCameraFeed", _videoReference);
+    }
+
+    private async Task ResumeCameraFeed()
+    {
+        _isPaused = false;
+        await JS.InvokeVoidAsync("resumeCameraFeed", _videoReference);
+    }
+
+    private async Task ProcessFrame()
     {
         await JS.InvokeVoidAsync(
-            "getFrame", "videoFeed", "currentFrame", WIDTH, HEIGHT, DotNetObjectReference.Create(this));
+            "processFrame", "videoFeed", "currentFrame", _width, _height, DotNetObjectReference.Create(this));
     }
 
     [JSInvokable]
