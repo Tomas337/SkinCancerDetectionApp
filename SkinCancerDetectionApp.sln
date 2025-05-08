@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SkinCancerDetectionApp", "SkinCancerDetectionApp\SkinCancerDetectionApp.csproj", "{B55AF669-2297-49E6-8189-5AB5AB5A927E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DetectionService", "DetectionService\DetectionService.csproj", "{54404879-0368-4686-BD4A-7A7D628C9F89}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{B55AF669-2297-49E6-8189-5AB5AB5A927E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B55AF669-2297-49E6-8189-5AB5AB5A927E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B55AF669-2297-49E6-8189-5AB5AB5A927E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54404879-0368-4686-BD4A-7A7D628C9F89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54404879-0368-4686-BD4A-7A7D628C9F89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54404879-0368-4686-BD4A-7A7D628C9F89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54404879-0368-4686-BD4A-7A7D628C9F89}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
