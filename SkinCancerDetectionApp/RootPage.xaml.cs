@@ -3,14 +3,14 @@ using Microsoft.Maui.Controls;
 
 namespace SkinCancerDetectionApp;
 
-public partial class MainPage : ContentPage
+public partial class RootPage : ContentPage
 {
-    public MainPage()
+    public RootPage()
     {
         InitializeComponent();
 
-        _blazorWebView.BlazorWebViewInitializing += BlazorWebViewInitializing;
-        _blazorWebView.BlazorWebViewInitialized += BlazorWebViewInitialized;
+        BlazorWebView.BlazorWebViewInitializing += BlazorWebViewInitializing;
+        BlazorWebView.BlazorWebViewInitialized += BlazorWebViewInitialized;
     }
 
     private partial void BlazorWebViewInitializing(object? sender, BlazorWebViewInitializingEventArgs e);

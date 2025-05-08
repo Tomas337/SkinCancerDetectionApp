@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components.WebView;
 
 namespace SkinCancerDetectionApp;
 
-public partial class MainPage
+public partial class RootPage
 {
     // It might be perfectly acceptable to not override the WebView2 permission requesting behavior
     // at all, relying on the default popup to decide whether to grant specific permissions. However,

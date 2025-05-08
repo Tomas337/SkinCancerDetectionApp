@@ -94,6 +94,7 @@
             "processFrame", "videoFeed", "currentFrame", _width, _height, DotNetObjectReference.Create(this));
     }
 
+    // TODO: Perform inference, show the bounding box and the predicted class on the screen.
     [JSInvokable]
     public void ProcessImage(string imageString)
     {

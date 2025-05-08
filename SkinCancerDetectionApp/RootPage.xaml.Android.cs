@@ -5,7 +5,7 @@ using Microsoft.Maui.Platform;
 
 namespace SkinCancerDetectionApp;
 
-public partial class MainPage
+public partial class RootPage
 {
     // To manage Android permissions, update AndroidManifest.xml to include the permissions and
     // features required by your app. You may have to perform additional configuration to enable

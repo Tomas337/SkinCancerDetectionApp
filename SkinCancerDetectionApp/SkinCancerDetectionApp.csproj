@@ -88,8 +88,11 @@
 	</ItemGroup>
     
     <ItemGroup>
-	  <Folder Include="assets\Model\" />
 	  <Folder Include="wwwroot\images\" />
 	</ItemGroup>
+    
+    <ItemGroup>
+      <AdditionalFiles Include="Components\MainPage.razor" />
+    </ItemGroup>
 
 </Project>

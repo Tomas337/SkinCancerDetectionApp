@@ -2,7 +2,7 @@
 
 namespace SkinCancerDetectionApp;
 
-public partial class MainPage
+public partial class RootPage
 {
     // To manage iOS permissions, update Info.plist to include the necessary keys to access
     // the APIs required by your app. You may have to perform additional configuration to enable
