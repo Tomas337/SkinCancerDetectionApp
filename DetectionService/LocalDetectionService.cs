@@ -16,7 +16,7 @@ public class LocalDetectionService : IDetectionService
         _session = new InferenceSession(settings.Value.LocalModelPath);
     }
 
-    public DetectionOutput RunInference(byte[] imageArray)
+    public DetectionOutput RunInference(Tensor<float> image)
     {
         using var runOptions = new RunOptions();
         using var session = new InferenceSession(modelFilePath);

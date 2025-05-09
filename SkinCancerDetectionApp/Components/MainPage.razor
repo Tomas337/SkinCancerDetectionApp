@@ -1,9 +1,15 @@
 ﻿@page "/"
 
+@using DetectionService.Interfaces
+@using DetectionService.Models
+@using Microsoft.ML.OnnxRuntime.Tensors
+@using SkinCancerDetectionApp.Services.ImageTransformService.Interfaces
 @implements IAsyncDisposable
 
 @inject IJSRuntime JS
 @inject NavigationManager NavigationManager
+@inject IDetectionService DetectionService
+@inject IImageTransformService ImageTransformService
 
 <div class="page">
     @if (_lastError is not null)
@@ -94,11 +100,16 @@
             "processFrame", "videoFeed", "currentFrame", _width, _height, DotNetObjectReference.Create(this));
     }
 
-    // TODO: Perform inference, show the bounding box and the predicted class on the screen.
     [JSInvokable]
     public void ProcessImage(string imageString)
     {
         byte[] jpegArray = Convert.FromBase64String(imageString);
+        Tensor<float> imageTensor = ImageTransformService.JpegArrayToTensor(jpegArray);
+        IImageTransform transform = ImageTransformService.GetImageTransform();
+        Tensor<float> transformedImageTensor = transform.Apply(imageTensor);
+
+        // TODO: Implement inference, show the bounding box and the predicted class on the screen.
+        DetectionOutput output = DetectionService.RunInference(transformedImageTensor);
     }
 
     async ValueTask IAsyncDisposable.DisposeAsync()

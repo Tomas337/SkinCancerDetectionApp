@@ -11,6 +11,13 @@ namespace SkinCancerDetectionApp.Services.ImageTransformService;
 
 public class ImageTransformService : IImageTransformService
 {
+    private readonly IOptions<DetectionSettings> _settings;
+
+    public ImageTransformService(IOptions<DetectionSettings> settings)
+    {
+        _settings = settings;
+    }
+
     private class FasterRcnnMobileNet320Transform : IImageTransform
     {
         public Tensor<float> Apply(Tensor<float> image)
@@ -29,16 +36,16 @@ public class ImageTransformService : IImageTransformService
         }
     }
 
-    public IImageTransform GetImageTransform(IOptions<DetectionSettings> settings)
+    public IImageTransform GetImageTransform()
     {
-        switch (settings.Value.Transform)
+        switch (_settings.Value.Transform)
         {
             case "FasterRcnnMobileNet320":
                 return new FasterRcnnMobileNet320Transform();
             case "None":
                 return new NoTransform();
             default:
-                throw new ArgumentException($"There is no image transform class associated with the key \"{settings.Value.Transform}\".");
+                throw new ArgumentException($"There is no image transform class associated with the key \"{_settings.Value.Transform}\".");
         }
     }
 

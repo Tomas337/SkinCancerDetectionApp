@@ -3,6 +3,8 @@ using DetectionService.Interfaces;
 using DetectionService.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using SkinCancerDetectionApp.Services.ImageTransformService;
+using SkinCancerDetectionApp.Services.ImageTransformService.Interfaces;
 
 namespace SkinCancerDetectionApp;
 
@@ -24,6 +26,7 @@ public static class MauiProgram
 		builder.Services.Configure<DetectionSettings>(
 			builder.Configuration.GetSection("DetectionServiceSettings"));
 		builder.Services.AddSingleton<IDetectionService, LocalDetectionService>();
+		builder.Services.AddScoped<IImageTransformService, ImageTransformService>();
 
 #if DEBUG
 		builder.Services.AddBlazorWebViewDeveloperTools();

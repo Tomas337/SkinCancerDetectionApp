@@ -6,6 +6,6 @@ namespace SkinCancerDetectionApp.Services.ImageTransformService.Interfaces;
 
 public interface IImageTransformService
 {
-    public IImageTransform GetImageTransform(IOptions<DetectionSettings> settings);
+    public IImageTransform GetImageTransform();
     public Tensor<float> JpegArrayToTensor(byte[] jpegArray, bool grayscale = false);
 }
