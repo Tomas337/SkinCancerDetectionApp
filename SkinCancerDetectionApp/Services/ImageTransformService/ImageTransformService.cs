@@ -49,7 +49,7 @@ public class ImageTransformService : IImageTransformService
     /// Tensor of shape [1, 3, W, H].
     /// </returns>
     /// <remarks>
-    /// Assumes the JPEG image has already been resized to the target dimensions.
+    /// This doesn't resize the image.
     /// </remarks>
     public unsafe Tensor<float> JpegArrayToTensor(byte[] jpegArray)
     {
