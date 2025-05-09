@@ -109,7 +109,7 @@
         Tensor<float> transformedImageTensor = transform.Apply(imageTensor);
 
         // TODO: Implement inference, show the bounding box and the predicted class on the screen.
-        DetectionOutput output = DetectionService.RunInference(transformedImageTensor);
+        DetectionOutput? output = DetectionService.RunInference(transformedImageTensor);
     }
 
     async ValueTask IAsyncDisposable.DisposeAsync()
