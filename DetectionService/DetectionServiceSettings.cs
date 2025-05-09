@@ -3,4 +3,5 @@
 public sealed class DetectionServiceSettings
 {
     public string LocalModelPath { get; set; } = default!;
+    public string Transform { get; set; } = default!;
 }

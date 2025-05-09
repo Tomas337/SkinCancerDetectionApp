@@ -92,10 +92,6 @@
     </ItemGroup>
     
     <ItemGroup>
-        <ProjectReference Include="..\DetectionService\DetectionService.csproj" />
-    </ItemGroup>
-    
-    <ItemGroup>
       <ProjectReference Include="..\DetectionService\DetectionService.csproj" />
     </ItemGroup>
 
