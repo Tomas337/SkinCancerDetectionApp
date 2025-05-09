@@ -40,7 +40,6 @@
         
         <!-- Comment out the line below to display a permission request dialog on Windows instead of handling permissions silently -->
 		<DefineConstants Condition="$(TargetFramework.Contains('-windows'))">HANDLE_WEBVIEW2_PERMISSIONS_SILENTLY</DefineConstants>
-		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     </PropertyGroup>
 
     <ItemGroup>
