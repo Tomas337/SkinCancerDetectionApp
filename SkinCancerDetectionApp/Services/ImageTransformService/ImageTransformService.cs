@@ -46,12 +46,13 @@ public class ImageTransformService : IImageTransformService
     /// Converts a JPEG image stored in a byte array to an ONNX tensor.
     /// </summary>
     /// <param name="jpegArray">The JPEG image as a byte array.</param>
-    /// <param name="grayscale">If true, the output tensor will have shape [1, 1, W, H]; otherwise, [1, 3, W, H].</param>
+    /// <param name="grayscale">If true, the output tensor will have the shape [1, 1, W, H]; otherwise, it will have the shape [1, 3, W, H].</param>
     /// <returns>
-    /// Tensor of shape [1, 3, W, H].
+    /// A tensor with the shape [1, C, W, H], where C is 1 for grayscale and 3 for color.
     /// </returns>
     /// <remarks>
-    /// This doesn't resize the image.
+    /// This method does not resize the image.
+    /// This implementation uses marshalling and, therefore, may not be the fastest implementation.
     /// </remarks>
     public Tensor<float> JpegArrayToTensor(byte[] jpegArray, bool grayscale = false)
     {
