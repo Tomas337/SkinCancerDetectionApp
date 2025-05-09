@@ -19,7 +19,7 @@ public static class MauiProgram
 		builder.Services.AddMauiBlazorWebView();
 
 		builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
-		builder.Services.Configure<DetectionServiceSettings>(
+		builder.Services.Configure<DetectionSettings>(
 			builder.Configuration.GetSection("DetectionServiceSettings"));
 		builder.Services.AddSingleton<IDetectionService, LocalDetectionService>();
 

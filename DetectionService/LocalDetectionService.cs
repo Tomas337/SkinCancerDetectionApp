@@ -9,7 +9,7 @@ public class LocalDetectionService : IDetectionService
 {
     private readonly InferenceSession _session;
 
-    public LocalDetectionService(IOptions<DetectionServiceSettings> settings)
+    public LocalDetectionService(IOptions<DetectionSettings> settings)
     {
         _session = new InferenceSession(settings.Value.LocalModelPath);
     }

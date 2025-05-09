@@ -24,7 +24,7 @@ public class ImageTransformService : IImageTransformService
         }
     }
 
-    public IImageTransform GetImageTransform(IOptions<DetectionServiceSettings> settings)
+    public IImageTransform GetImageTransform(IOptions<DetectionSettings> settings)
     {
         switch (settings.Value.Transform)
         {

@@ -5,5 +5,5 @@ namespace SkinCancerDetectionApp.Services.ImageTransformService;
 
 public interface IImageTransformService
 {
-    public IImageTransform GetImageTransform(IOptions<DetectionServiceSettings> settings);
+    public IImageTransform GetImageTransform(IOptions<DetectionSettings> settings);
 }
