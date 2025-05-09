@@ -1,4 +1,4 @@
-﻿namespace DetectionService;
+﻿namespace DetectionService.Models;
 
 public sealed class DetectionSettings
 {

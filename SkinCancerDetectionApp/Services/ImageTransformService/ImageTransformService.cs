@@ -1,6 +1,8 @@
 ﻿using DetectionService;
+using DetectionService.Models;
 using Microsoft.Extensions.Options;
 using Microsoft.ML.OnnxRuntime.Tensors;
+using SkinCancerDetectionApp.Services.ImageTransformService.Interfaces;
 
 namespace SkinCancerDetectionApp.Services.ImageTransformService;
 

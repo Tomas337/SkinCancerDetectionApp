@@ -1,4 +1,6 @@
 using System.Threading.Channels;
+using DetectionService.Interfaces;
+using DetectionService.Models;
 using Microsoft.Extensions.Options;
 using Microsoft.ML.OnnxRuntime;
 using Microsoft.ML.OnnxRuntime.Tensors;

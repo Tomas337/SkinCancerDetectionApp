@@ -1,4 +1,6 @@
 ﻿using DetectionService;
+using DetectionService.Interfaces;
+using DetectionService.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 

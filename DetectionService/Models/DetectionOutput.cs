@@ -1,6 +1,6 @@
 ﻿using Microsoft.ML.OnnxRuntime.Tensors;
 
-namespace DetectionService;
+namespace DetectionService.Models;
 
 public sealed class DetectionOutput
 {

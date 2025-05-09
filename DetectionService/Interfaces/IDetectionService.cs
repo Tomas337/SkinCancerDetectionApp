@@ -1,6 +1,6 @@
-﻿using Microsoft.ML.OnnxRuntime;
+﻿using DetectionService.Models;
 
-namespace DetectionService;
+namespace DetectionService.Interfaces;
 
 public interface IDetectionService
 {
