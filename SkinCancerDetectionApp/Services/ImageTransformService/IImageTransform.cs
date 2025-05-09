@@ -1,6 +1,6 @@
 ﻿using Microsoft.ML.OnnxRuntime.Tensors;
 
-namespace SkinCancerDetectionApp.Services;
+namespace SkinCancerDetectionApp.Services.ImageTransformService;
 
 public interface IImageTransform
 {

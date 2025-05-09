@@ -1,7 +1,7 @@
 ﻿using DetectionService;
 using Microsoft.Extensions.Options;
 
-namespace SkinCancerDetectionApp.Services;
+namespace SkinCancerDetectionApp.Services.ImageTransformService;
 
 public interface IImageTransformService
 {
