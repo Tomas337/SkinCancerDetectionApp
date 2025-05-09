@@ -4,14 +4,14 @@ namespace DetectionService.Models;
 
 public sealed class DetectionOutput
 {
-    public Tensor<float> Boxes;
-    public Tensor<int> Labels;
-    public Tensor<float> Scores;
+    public Tensor<float> BBox;
+    public Tensor<int> Label;
+    public Tensor<float> Score;
 
-    public DetectionOutput(Tensor<float> boxes, Tensor<int> labels, Tensor<float> scores)
+    public DetectionOutput(Tensor<float> bbox, Tensor<int> label, Tensor<float> score)
     {
-        Boxes = boxes;
-        Labels = labels;
-        Scores = scores;
+        BBox = bbox;
+        Label = label;
+        Score = score;
     }
 }

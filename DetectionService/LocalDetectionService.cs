@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Threading.Channels;
 using DetectionService.Interfaces;
 using DetectionService.Models;
@@ -16,67 +17,25 @@ public class LocalDetectionService : IDetectionService
         _session = new InferenceSession(settings.Value.LocalModelPath);
     }
 
-    public DetectionOutput RunInference(Tensor<float> image)
+    public DetectionOutput? RunInference(Tensor<float> image)
     {
-        using var runOptions = new RunOptions();
-        using var session = new InferenceSession(modelFilePath);
-
-        // Read the image
-        Console.WriteLine ($"Reading image: {imageFilePath}");
-        using Image<Rgb24> image = Image.Load<Rgb24> (imageFilePath, out IImageFormat format);
-        int width = image.Width;
-        int height = image.Height;
-
-        Console.WriteLine($"Image: W:{width} H:{height} loaded");
-
-        // As this library does not allow access to its content directly, we need to copy it to a new tensor
-        // within the OrtValue. This must be disposed of when no longer needed. We use default CPU based allocator
-        // here and we are copying straight to the native memory. In cases when the data resides in an array, we
-        // can use it directly without copying by using CreateTensorValueFromMemory().
-
-        // The below allocates an internal native buffer.
-        // Alternatively, we can also allocate a managed buffer, copy data there and then map it to the OrtValue.
-        // No significant difference, since one copy would have to be made, but may be important to have access
-        // to a managed buffer from C#.
-        using var ortValue = OrtValue.CreateAllocatedTensorValue(OrtAllocator.DefaultInstance,
-            TensorElementType.UInt8, new long[] { height, width, 3 });
-
-        image.ProcessPixelRows(accessor =>
+        var inputName = _session.InputMetadata.Keys.First();
+        var inputs = new List<NamedOnnxValue>
         {
-            int flatIndex = 0;
-            var destSpan = ortValue.GetTensorMutableDataAsSpan<byte>();
-            for (int y = 0; y < accessor.Height; y++)
-            {
-                Span<Rgb24> pixelSpan = accessor.GetRowSpan(y);
-                Debug.Assert(pixelSpan.Length == accessor.Width);
-
-                // We can copy this byte by byte or we can copy the entire row.
-                // Because we know that Rgb24 is a Sequential Layout structure that consists
-                // of exactly 3 bytes.
-                var byteSpan = MemoryMarshal.Cast<Rgb24, byte>(pixelSpan);
-                Debug.Assert(byteSpan.Length == accessor.Width * 3);
-                var destSlice = destSpan.Slice(flatIndex, byteSpan.Length);
-                byteSpan.CopyTo(destSlice);
-                flatIndex += byteSpan.Length;
-
-                // Byte by byte copy
-                //for (int x = 0; x < accessor.Width; x++)
-                //{
-                //    destSpan[flatIndex++] = pixelSpan[x].R;
-                //    destSpan[flatIndex++] = pixelSpan[x].G;
-                //    destSpan[flatIndex++] = pixelSpan[x].B;
-                //}
-            }
-        });
-
-        var inputs = new Dictionary<string, OrtValue>
-        {
-            { "image", ortValue }
+            NamedOnnxValue.CreateFromTensor(inputName, image)
         };
 
-        // Outputs are disposable OrtValues, must be disposed of.
-        using var outputs = session.Run(runOptions, inputs, session.OutputNames);
+        var results = _session.Run(inputs);
 
-        return new DetectionOutput();
+        var output = results.FirstOrDefault();
+        if (output != null)
+        {
+            var bbox = output.AsTensor<float>();
+            var label = output.AsTensor<int>();
+            var score = output.AsTensor<float>();
+            Trace.WriteLine($"bbox: {bbox}, label: {label}, score: {score}");
+            return new DetectionOutput(bbox, label, score);
+        }
+        return null;
     }
 }
