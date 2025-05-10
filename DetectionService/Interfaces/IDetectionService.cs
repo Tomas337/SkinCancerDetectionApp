@@ -5,5 +5,5 @@ namespace DetectionService.Interfaces;
 
 public interface IDetectionService
 {
-    public DetectionOutput? RunInference(Tensor<float> image);
+    public Task<DetectionOutput?> RunInference(Tensor<float> image);
 }

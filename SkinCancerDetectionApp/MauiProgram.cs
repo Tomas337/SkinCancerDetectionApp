@@ -1,10 +1,8 @@
-﻿using System.Reflection;
-using DetectionService;
+﻿using DetectionService;
 using DetectionService.Interfaces;
 using DetectionService.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using SkinCancerDetectionApp.Services.ImageTransformService;
 using SkinCancerDetectionApp.Services.ImageTransformService.Interfaces;
 

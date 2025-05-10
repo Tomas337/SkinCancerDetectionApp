@@ -1,5 +1,4 @@
 using System.Diagnostics;
-using System.Threading.Channels;
 using DetectionService.Interfaces;
 using DetectionService.Models;
 using Microsoft.Extensions.Options;
@@ -10,15 +9,22 @@ namespace DetectionService;
 
 public class LocalDetectionService : IDetectionService
 {
-    private readonly InferenceSession _session;
+    private InferenceSession? _session;
+    private IOptions<DetectionSettings> _settings;
 
     public LocalDetectionService(IOptions<DetectionSettings> settings)
     {
-        _session = new InferenceSession(settings.Value.LocalModelPath);
+        _settings = settings;
     }
 
-    public DetectionOutput? RunInference(Tensor<float> image)
+    public async Task<DetectionOutput?> RunInference(Tensor<float> image)
     {
+        if (_session is null)
+        {
+            string onnxModelPath = await FileOperations.CopyToAppData(_settings.Value.LocalModelPath);
+            _session = new InferenceSession(onnxModelPath);
+        }
+
         var inputName = _session.InputMetadata.Keys.First();
         var inputs = new List<NamedOnnxValue>
         {
