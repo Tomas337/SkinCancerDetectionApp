@@ -1,5 +1,6 @@
 ﻿@page "/"
 
+@using System.Diagnostics
 @using DetectionService.Interfaces
 @using DetectionService.Models
 @using Microsoft.ML.OnnxRuntime.Tensors
@@ -101,15 +102,16 @@
     }
 
     [JSInvokable]
-    public void ProcessImage(string imageString)
+    public async void ProcessImage(string imageString)
     {
-        byte[] jpegArray = Convert.FromBase64String(imageString);
+        string base64 = imageString.Substring(imageString.IndexOf(",") + 1);
+        byte[] jpegArray = Convert.FromBase64String(base64);
         Tensor<float> imageTensor = ImageTransformService.JpegArrayToTensor(jpegArray);
         IImageTransform transform = ImageTransformService.GetImageTransform();
         Tensor<float> transformedImageTensor = transform.Apply(imageTensor);
 
         // TODO: Implement inference, show the bounding box and the predicted class on the screen.
-        DetectionOutput? output = DetectionService.RunInference(transformedImageTensor);
+        DetectionOutput? output = await DetectionService.RunInference(transformedImageTensor);
     }
 
     async ValueTask IAsyncDisposable.DisposeAsync()

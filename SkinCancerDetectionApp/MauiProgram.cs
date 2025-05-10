@@ -4,6 +4,7 @@ using DetectionService.Interfaces;
 using DetectionService.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using SkinCancerDetectionApp.Services.ImageTransformService;
 using SkinCancerDetectionApp.Services.ImageTransformService.Interfaces;
 
@@ -25,7 +26,7 @@ public static class MauiProgram
 
 		using var stream = FileSystem.OpenAppPackageFileAsync("appsettings.json").Result;
 
-        builder.Configuration.AddJsonStream(stream!);
+        builder.Configuration.AddJsonStream(stream);
 		builder.Services.Configure<DetectionSettings>(
 			builder.Configuration.GetSection("DetectionServiceSettings"));
 		builder.Services.AddSingleton<IDetectionService, LocalDetectionService>();
