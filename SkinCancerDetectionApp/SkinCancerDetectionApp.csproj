@@ -84,15 +84,18 @@
 	</ItemGroup>
     
     <ItemGroup>
-	  <Folder Include="wwwroot\images\" />
+	    <Folder Include="wwwroot\images\" />
 	</ItemGroup>
     
     <ItemGroup>
-      <AdditionalFiles Include="Components\MainPage.razor" />
+        <AdditionalFiles Include="Components\MainPage.razor" />
     </ItemGroup>
     
     <ItemGroup>
-      <ProjectReference Include="..\DetectionService\DetectionService.csproj" />
+        <ProjectReference Include="..\DetectionService\DetectionService.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+        <MauiAsset Include="appsettings.json" />
+    </ItemGroup>
 </Project>
